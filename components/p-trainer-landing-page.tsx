@@ -96,7 +96,12 @@ export function PTrainerLandingPage() {
             <h2 className="text-3xl font-bold mb-12 text-center">고객 후기</h2>
             <div className="md:flex">
               {testimonials.map((testimonial, index) => (
-                <div key={index} className="w-full md:w-1/3 flex-shrink-0 px-4 mb-4 md:mb-0">
+                <div 
+                  key={index} 
+                  className={`w-full md:w-1/3 flex-shrink-0 px-4 mb-4 md:mb-0 transition-opacity duration-500 ${
+                    index === currentTestimonialIndex ? 'opacity-100' : 'opacity-50'
+                  }`}
+                >
                   <div className="bg-white p-8 rounded-lg shadow-lg h-full">
                     <Image
                       src="/images/review_profile.jpg"
