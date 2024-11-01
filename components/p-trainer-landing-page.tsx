@@ -1,17 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { Instagram, Facebook, Twitter } from 'lucide-react'
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -34,9 +25,9 @@ export function PTrainerLandingPage() {
     }
   ]
 
-  const nextTestimonial = () => {
+  const nextTestimonial = useCallback(() => {
     setCurrentTestimonialIndex((prev) => (prev + 1) % testimonials.length)
-  }
+  }, [testimonials.length])
 
   useEffect(() => {
     const timer = setInterval(nextTestimonial, 5000)
@@ -57,6 +48,7 @@ export function PTrainerLandingPage() {
       </header>
 
       <main>
+        {/* Hero Section */}
         <section className="relative bg-gray-100">
           <div 
             className="absolute inset-0 bg-cover bg-center z-0" 
@@ -74,6 +66,7 @@ export function PTrainerLandingPage() {
           </div>
         </section>
 
+        {/* About Section */}
         <section id="about" className="py-20">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center">
@@ -85,7 +78,7 @@ export function PTrainerLandingPage() {
                 className="rounded-full mb-8 w-4/5 md:mb-0 md:mr-12 md:w-auto"
               />
               <div>
-              <h2 className="text-3xl font-bold mb-12">트레이너 소개</h2>
+                <h2 className="text-3xl font-bold mb-12">트레이너 소개</h2>
                 <p className="text-lg mb-6 text-gray-600">
                   안녕하세요, 저는 NASM 자격을 보유한 개인 트레이너 이지훈입니다. 7년간 다양한 고객을 대상으로 맞춤형 피트니스 프로그램을 제공해 왔으며, 체중 감량부터 근육 강화, 재활 트레이닝까지 폭넓은 경험을 쌓았습니다.
                 </p>
@@ -97,8 +90,29 @@ export function PTrainerLandingPage() {
           </div>
         </section>
 
-        {/* Services section and rest of the code remains the same */}
-        {/* ... */}
+        {/* Testimonials Section */}
+        <section id="testimonials" className="py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-12 text-center">고객 후기</h2>
+            <div className="md:flex">
+              {testimonials.map((testimonial, index) => (
+                <div key={index} className="w-full md:w-1/3 flex-shrink-0 px-4 mb-4 md:mb-0">
+                  <div className="bg-white p-8 rounded-lg shadow-lg h-full">
+                    <Image
+                      src="/images/review_profile.jpg"
+                      alt=""
+                      width={60}
+                      height={60}
+                      className="rounded-full mb-4"
+                    />
+                    <p className="text-lg mb-4 text-gray-600">&ldquo;{testimonial.content}&rdquo;</p>
+                    <p className="font-semibold">- {testimonial.author}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
       </main>
 
